@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 
 import { useGetCryptosQuery } from "../services/cryptoApi";
 
+import { Cryptocurrencies, News } from "../components";
+
 const { Title } = Typography;
 
 const Homepage = () => {
-  const { data, isFetching } = useGetCryptosQuery();
+  const { data, isFetching } = useGetCryptosQuery(10);
   const globalStats = data?.data?.stats;
 
   if (isFetching) return "Loading...";
@@ -57,6 +59,24 @@ const Homepage = () => {
           />
         </Col>
       </Row>
+      <div className="home-heading-container">
+        <Title level={2} className="home-title">
+          Top 10 Cryptocurrencies in the world
+        </Title>
+        <Title level={2} className="show-more">
+          <Link to="/cryptocurrencies">Show More</Link>
+        </Title>
+      </div>
+      <Cryptocurrencies simplified="true" />
+      <div className="home-heading-container">
+        <Title level={2} className="home-title">
+          Latest CryptoNews
+        </Title>
+        <Title level={2} className="show-more">
+          <Link to="/news">Show More</Link>
+        </Title>
+      </div>
+      <News simplified />
     </>
   );
 };
